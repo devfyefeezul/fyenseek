@@ -1,0 +1,674 @@
+{
+ "furniture/armchair": {
+  "size": [
+   1.8,
+   1.224,
+   1.6
+  ],
+  "center": [
+   0,
+   0,
+   0.05
+  ]
+ },
+ "furniture/armchair_pillows": {
+  "size": [
+   1.8,
+   1.224,
+   1.6
+  ],
+  "center": [
+   0,
+   0,
+   0.05
+  ]
+ },
+ "furniture/bed_double_A": {
+  "size": [
+   3.1,
+   1,
+   3
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/bed_single_A": {
+  "size": [
+   1.6,
+   1,
+   3
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/book_set": {
+  "size": [
+   0.78,
+   0.5,
+   0.365
+  ],
+  "center": [
+   0,
+   -0.25,
+   0.005
+  ]
+ },
+ "furniture/cabinet_medium": {
+  "size": [
+   2,
+   1,
+   1.002
+  ],
+  "center": [
+   0,
+   0,
+   0.001
+  ]
+ },
+ "furniture/cabinet_medium_decorated": {
+  "size": [
+   2.042,
+   1.827,
+   1.002
+  ],
+  "center": [
+   0.021,
+   0,
+   0.001
+  ]
+ },
+ "furniture/cabinet_small": {
+  "size": [
+   1,
+   1,
+   1.002
+  ],
+  "center": [
+   0,
+   0,
+   0.001
+  ]
+ },
+ "furniture/cactus_medium_A": {
+  "size": [
+   0.88,
+   0.827,
+   0.837
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/cactus_small_A": {
+  "size": [
+   0.5,
+   0.552,
+   0.5
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/chair_A": {
+  "size": [
+   0.75,
+   1.258,
+   0.845
+  ],
+  "center": [
+   0,
+   0,
+   -0.048
+  ]
+ },
+ "furniture/chair_B": {
+  "size": [
+   0.75,
+   1.258,
+   0.845
+  ],
+  "center": [
+   0,
+   0,
+   -0.048
+  ]
+ },
+ "furniture/chair_C": {
+  "size": [
+   0.75,
+   1.203,
+   0.936
+  ],
+  "center": [
+   0,
+   0,
+   -0.093
+  ]
+ },
+ "furniture/chair_stool": {
+  "size": [
+   0.75,
+   0.5,
+   0.75
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/chair_stool_wood": {
+  "size": [
+   0.75,
+   0.5,
+   0.75
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/couch": {
+  "size": [
+   3,
+   1.224,
+   1.6
+  ],
+  "center": [
+   0,
+   0,
+   0.05
+  ]
+ },
+ "furniture/couch_pillows": {
+  "size": [
+   3,
+   1.224,
+   1.6
+  ],
+  "center": [
+   0,
+   0,
+   0.05
+  ]
+ },
+ "furniture/lamp_standing": {
+  "size": [
+   1,
+   2.52,
+   1
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/lamp_table": {
+  "size": [
+   1,
+   1.022,
+   1
+  ],
+  "center": [
+   0,
+   -0.002,
+   0
+  ]
+ },
+ "furniture/pictureframe_standing_A": {
+  "size": [
+   0.5,
+   0.619,
+   0.379
+  ],
+  "center": [
+   0,
+   -0.001,
+   -0.018
+  ]
+ },
+ "furniture/pillow_A": {
+  "size": [
+   0.65,
+   0.2,
+   0.5
+  ],
+  "center": [
+   0,
+   -0.1,
+   0
+  ]
+ },
+ "furniture/pillow_B": {
+  "size": [
+   0.65,
+   0.2,
+   0.5
+  ],
+  "center": [
+   0,
+   -0.1,
+   0
+  ]
+ },
+ "furniture/rug_oval_A": {
+  "size": [
+   3,
+   0.1,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/rug_rectangle_A": {
+  "size": [
+   3,
+   0.1,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/rug_rectangle_stripes_A": {
+  "size": [
+   3,
+   0.1,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/shelf_A_big": {
+  "size": [
+   2,
+   0.4,
+   0.5
+  ],
+  "center": [
+   0,
+   -0.3,
+   0.25
+  ]
+ },
+ "furniture/shelf_B_large_decorated": {
+  "size": [
+   2,
+   0.818,
+   0.5
+  ],
+  "center": [
+   0,
+   -0.1,
+   0.25
+  ]
+ },
+ "furniture/shelf_B_small_decorated": {
+  "size": [
+   1,
+   1.012,
+   0.571
+  ],
+  "center": [
+   0,
+   -0.1,
+   0.286
+  ]
+ },
+ "furniture/table_low": {
+  "size": [
+   2.4,
+   0.5,
+   1.5
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/table_medium": {
+  "size": [
+   2,
+   1,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/table_medium_long": {
+  "size": [
+   3,
+   1,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "furniture/table_small": {
+  "size": [
+   1,
+   1,
+   1
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/bowl": {
+  "size": [
+   0.95,
+   0.3,
+   0.95
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/chair_A": {
+  "size": [
+   0.75,
+   1.208,
+   0.796
+  ],
+  "center": [
+   0,
+   0,
+   -0.023
+  ]
+ },
+ "kitchen/chair_B": {
+  "size": [
+   0.75,
+   1.208,
+   0.796
+  ],
+  "center": [
+   0,
+   0,
+   -0.023
+  ]
+ },
+ "kitchen/crate": {
+  "size": [
+   2,
+   0.8,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/crate_buns": {
+  "size": [
+   2,
+   0.802,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/crate_carrots": {
+  "size": [
+   2,
+   0.943,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/crate_lid": {
+  "size": [
+   2,
+   0.2,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/crate_tomatoes": {
+  "size": [
+   2,
+   0.923,
+   2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/cuttingboard": {
+  "size": [
+   1.5,
+   0.15,
+   1
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/dishrack": {
+  "size": [
+   1.2,
+   0.6,
+   1.2
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/food_burger": {
+  "size": [
+   0.95,
+   0.857,
+   0.95
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/food_dinner": {
+  "size": [
+   1.037,
+   0.908,
+   0.95
+  ],
+  "center": [
+   -0.005,
+   0,
+   0
+  ]
+ },
+ "kitchen/food_ingredient_tomato": {
+  "size": [
+   0.75,
+   0.7,
+   0.75
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/fridge_A": {
+  "size": [
+   2,
+   2.5,
+   2.24
+  ],
+  "center": [
+   0,
+   0,
+   0.12
+  ]
+ },
+ "kitchen/kitchencounter_sink": {
+  "size": [
+   2,
+   1.802,
+   2.042
+  ],
+  "center": [
+   0,
+   0,
+   0.021
+  ]
+ },
+ "kitchen/kitchencounter_straight_A": {
+  "size": [
+   2,
+   1,
+   2.042
+  ],
+  "center": [
+   0,
+   0,
+   0.021
+  ]
+ },
+ "kitchen/menu": {
+  "size": [
+   0.5,
+   0.8,
+   0.3
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/oven": {
+  "size": [
+   2,
+   2.02,
+   2.348
+  ],
+  "center": [
+   0,
+   0,
+   0.144
+  ]
+ },
+ "kitchen/pan_B": {
+  "size": [
+   1,
+   0.25,
+   1.5
+  ],
+  "center": [
+   0,
+   0,
+   0.25
+  ]
+ },
+ "kitchen/plate": {
+  "size": [
+   0.95,
+   0.1,
+   0.95
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/plate_small": {
+  "size": [
+   0.75,
+   0.1,
+   0.75
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/pot_A": {
+  "size": [
+   1.4,
+   0.5,
+   1
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ },
+ "kitchen/stove_multi": {
+  "size": [
+   2,
+   1.2,
+   2.288
+  ],
+  "center": [
+   0,
+   0,
+   0.114
+  ]
+ },
+ "kitchen/table_round_A": {
+  "size": [
+   3,
+   1,
+   3
+  ],
+  "center": [
+   0,
+   0,
+   0
+  ]
+ }
+}

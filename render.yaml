@@ -1,0 +1,12 @@
+# One-click free hosting on Render: New > Blueprint, pick this repo.
+services:
+  - type: web
+    name: hidenseek
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
