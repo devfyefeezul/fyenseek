@@ -1,6 +1,6 @@
 {
-  "name": "HidenSeek",
-  "short_name": "HidenSeek",
+  "name": "Fyenseek",
+  "short_name": "Fyenseek",
   "description": "Hide and seek with friends: turn into furniture, fool the seeker.",
   "start_url": "/",
   "display": "standalone",

@@ -3,3 +3,4 @@ dist/
 tests/screens/
 *.log
 .DS_Store
+dist-test

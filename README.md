@@ -1,4 +1,4 @@
-# HidenSeek
+# Fyenseek
 
 Hide and seek for your phone. Make a room, share the 6-letter code, and play with up to 8 friends. Hiders turn into furniture and kitchen stuff; one seeker has 3 minutes to find them all.
 
@@ -75,8 +75,8 @@ Every push to `main` redeploys both.
 The Render service also serves the website itself, so `https://fyenseek-server.onrender.com` works on its own. For a server that never sleeps, use an Oracle Cloud Always Free VM with the included `Dockerfile`:
 
 ```bash
-docker build -t hidenseek .
-docker run -d --restart unless-stopped -p 80:3000 hidenseek
+docker build -t fyenseek .
+docker run -d --restart unless-stopped -p 80:3000 fyenseek
 ```
 
 ## Project layout

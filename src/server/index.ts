@@ -98,4 +98,4 @@ setInterval(() => {
   }
 }, 1000 / TICK_HZ);
 
-server.listen(PORT, () => console.log(`HidenSeek server on http://localhost:${PORT}`));
+server.listen(PORT, () => console.log(`Fyenseek server on http://localhost:${PORT}`));

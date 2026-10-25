@@ -5,7 +5,7 @@ import type { ClientMsg, ServerMsg } from '../shared/protocol';
 
 type Handler = (msg: ServerMsg) => void;
 
-const SESSION_KEY = 'hidenseek.session';
+const SESSION_KEY = 'fyenseek.session';
 
 export interface Session { code: string; token: string; name: string; color: string }
 

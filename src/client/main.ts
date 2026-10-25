@@ -133,7 +133,7 @@ $('share').onclick = async () => {
   if (!room) return;
   const url = `${location.origin}/r/${room.code}`;
   try {
-    if (navigator.share) await navigator.share({ title: 'HidenSeek', text: `Join my HidenSeek room: ${room.code}`, url });
+    if (navigator.share) await navigator.share({ title: 'Fyenseek', text: `Join my Fyenseek room: ${room.code}`, url });
     else { await navigator.clipboard.writeText(url); toastLobby('Invite link copied'); }
   } catch { /* user cancelled */ }
 };
