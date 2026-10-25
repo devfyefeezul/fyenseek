@@ -52,26 +52,32 @@ npm start          # http://localhost:3000
 
 ## Put it online for free
 
-### Render (easiest)
+The website goes on **Vercel** and the game server on **Render**. Vercel can't keep a game server running between requests, so the two work together. Both are free.
 
-1. Push this repo to GitHub.
-2. Sign in to [render.com](https://render.com) with GitHub (no card needed for the free plan).
-3. **New > Blueprint**, pick this repo. Render reads `render.yaml` and deploys.
-4. Share the address it gives you, for example `https://hidenseek.onrender.com`.
+### 1. Game server on Render
 
-The free server sleeps after about 15 minutes without visitors, so the first person to open it waits about a minute while it wakes up.
+1. Sign in to [render.com](https://render.com) with GitHub (no card needed for the free plan).
+2. **New > Blueprint**, pick this repo. Render reads `render.yaml` and starts a service called `fyenseek-server`.
+3. When it's live, check its address. It should be `https://fyenseek-server.onrender.com`. If Render gave a different one, put it in `.env.production` (`VITE_SERVER_URL=wss://<that address>`) and push.
 
-### Oracle Cloud Always Free (no sleeping)
+The free server sleeps after about 15 minutes without players. The website wakes it when someone opens the page, and the first visitor waits up to a minute.
 
-Create an Always Free VM, install Docker, then:
+### 2. Website on Vercel
+
+1. In Vercel, **Add New > Project** and import this repo.
+2. Keep the defaults. `vercel.json` already sets the build command and output folder.
+3. Deploy, then share the Vercel address, for example `https://fyenseek.vercel.app`. Room links look like `https://fyenseek.vercel.app/r/K7QF2M`.
+
+Every push to `main` redeploys both.
+
+### Alternative: one server, no Vercel
+
+The Render service also serves the website itself, so `https://fyenseek-server.onrender.com` works on its own. For a server that never sleeps, use an Oracle Cloud Always Free VM with the included `Dockerfile`:
 
 ```bash
-git clone <this repo> && cd <repo>
 docker build -t hidenseek .
 docker run -d --restart unless-stopped -p 80:3000 hidenseek
 ```
-
-Open port 80 in the VM's security list. For HTTPS, put [Caddy](https://caddyserver.com/) in front with a free domain or subdomain.
 
 ## Project layout
 

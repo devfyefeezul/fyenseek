@@ -6,7 +6,7 @@ import {
   PLAYER_COLORS, PLAYER_RADIUS, PLAYER_SPEED, SEEKER_SPEED, SWAP_RANGE, TAG_RANGE, MIN_PLAYERS, ROOM_CODE_LENGTH,
 } from '../shared/constants';
 import type { RoomInfo, ServerMsg, SnapPlayer, Phase } from '../shared/protocol';
-import { Net, loadSession, saveSession } from './net';
+import { Net, loadSession, saveSession, wakeServer } from './net';
 import { Controls } from './controls';
 import { World, type RenderPlayer } from './world';
 import { sfx, spatial, unlockAudio } from './sfx';
@@ -32,7 +32,16 @@ const store = {
   set(k: string, v: string) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
 };
 
+wakeServer();
 const net = new Net();
+// Tell people why nothing happens while a sleeping server starts up.
+let connected = false;
+const slowTimer = setTimeout(() => { if (!connected) $('conn-status').hidden = false; }, 1500);
+net.onStatus = (ok) => {
+  connected = ok;
+  if (ok) { clearTimeout(slowTimer); $('conn-status').hidden = true; }
+  else if (!$('home').hidden) $('conn-status').hidden = false;
+};
 const world = new World($<HTMLCanvasElement>('canvas'));
 const controls = new Controls($('stick'), document.querySelector('.stick-base') as HTMLElement, $('stick-knob'));
 

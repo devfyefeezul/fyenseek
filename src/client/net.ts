@@ -19,6 +19,25 @@ export function saveSession(s: Session | null) {
   } catch { /* storage blocked: reconnect after refresh just won't work */ }
 }
 
+/**
+ * Where the game server lives. When the site is hosted somewhere that can't
+ * run it (Vercel), VITE_SERVER_URL points at the server, e.g.
+ * wss://fyenseek-server.onrender.com. Otherwise the page's own host is used.
+ */
+export function serverUrl(): string {
+  const configured = import.meta.env.VITE_SERVER_URL as string | undefined;
+  if (configured && location.hostname !== 'localhost' && !location.hostname.endsWith('.onrender.com') && !/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
+    return configured.replace(/\/$/, '') + '/ws';
+  }
+  return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws`;
+}
+
+/** A free server sleeps when idle; poke it as soon as the page opens. */
+export function wakeServer() {
+  const ws = serverUrl().replace(/^ws/, 'http').replace(/\/ws$/, '/health');
+  fetch(ws, { mode: 'no-cors' }).catch(() => {});
+}
+
 export class Net {
   private ws: WebSocket | null = null;
   private queue: string[] = [];
@@ -32,7 +51,7 @@ export class Net {
   constructor() { this.open(false); }
 
   private open(isRetry: boolean) {
-    const url = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws`;
+    const url = serverUrl();
     const ws = new WebSocket(url);
     this.ws = ws;
     ws.onopen = () => {

@@ -1,0 +1,11 @@
+{
+  "name": "HidenSeek",
+  "short_name": "HidenSeek",
+  "description": "Hide and seek with friends: turn into furniture, fool the seeker.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2b2350",
+  "theme_color": "#2b2350",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

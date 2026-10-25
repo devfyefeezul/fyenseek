@@ -1,7 +1,7 @@
 # One-click free hosting on Render: New > Blueprint, pick this repo.
 services:
   - type: web
-    name: hidenseek
+    name: fyenseek-server
     runtime: node
     plan: free
     buildCommand: npm ci --include=dev && npm run build
