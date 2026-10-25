@@ -77,17 +77,18 @@ export class World {
   map: MapDef | null = null;
 
   constructor(private canvas: HTMLCanvasElement) {
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+    // Phones have 3x screens; 1.5x looks the same at this zoom and draws far fewer pixels.
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.scene.background = new THREE.Color('#241d45');
 
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0x8a7fa8, 1.7));
     this.sun = new THREE.DirectionalLight(0xfff4e0, 1.9);
     this.sun.castShadow = true;
-    this.sun.shadow.mapSize.set(2048, 2048);
+    this.sun.shadow.mapSize.set(1024, 1024);
     this.sun.shadow.bias = -0.0006;
     this.scene.add(this.sun, this.sun.target);
     this.scene.add(this.mapGroup, this.propsGroup, this.playersGroup);
@@ -159,6 +160,9 @@ export class World {
       obj.position.set(p.x, 0, p.z);
       obj.rotation.y = (p.rot * Math.PI) / 2;
       obj.userData.entity = p.id;
+      // Props never move, so skip their per-frame matrix updates.
+      obj.updateMatrixWorld(true);
+      obj.traverse((o) => { o.matrixAutoUpdate = false; });
       this.propsGroup.add(obj);
       this.propObjects.set(p.id, obj);
     }));
@@ -177,7 +181,7 @@ export class World {
         this.players.set(p.id, v);
       }
       v.root.position.set(p.x, 0, p.z);
-      if (v.disguise !== p.d && !v.pending) this.rebuildBody(v, p);
+      if (v.disguise !== (p.d || null) && !v.pending) this.rebuildBody(v, p);
       if (v.body) v.body.rotation.y = p.r;
       const text = p.showName ? (p.self ? 'You' : p.name) : '';
       if (text !== v.labelText) this.setLabel(v, text, p.color, p.d ? PROPS[p.d].height : 1.6);
@@ -218,7 +222,7 @@ export class World {
   }
 
   private setLabel(v: PlayerView, text: string, color: string, height: number) {
-    if (v.label) { v.root.remove(v.label); v.label.material.map?.dispose(); v.label = null; }
+    if (v.label) { v.root.remove(v.label); v.label.material.map?.dispose(); v.label.material.dispose(); v.label = null; }
     v.labelText = text;
     if (!text) return;
     const c = document.createElement('canvas');
@@ -361,7 +365,7 @@ export class World {
     for (let i = this.effects.length - 1; i >= 0; i--) {
       const e = this.effects[i];
       const k = (now - e.born) / e.life;
-      if (k >= 1) { this.scene.remove(e.obj); this.effects.splice(i, 1); continue; }
+      if (k >= 1) { this.scene.remove(e.obj); disposeTree(e.obj); this.effects.splice(i, 1); continue; }
       e.update(now, k);
     }
     if (this.selectRing.visible) {
@@ -385,29 +389,59 @@ export class World {
   }
 }
 
+// Characters share geometry and materials so swapping and respawning never
+// allocates new GPU buffers.
+const charGeo = {
+  body: new THREE.CapsuleGeometry(0.38, 0.55, 6, 16),
+  eye: new THREE.SphereGeometry(0.1, 12, 12),
+  pupil: new THREE.SphereGeometry(0.05, 10, 10),
+  cap: new THREE.CylinderGeometry(0.3, 0.36, 0.22, 20),
+  brim: new THREE.BoxGeometry(0.5, 0.05, 0.3),
+};
+const charMat = new Map<string, THREE.MeshStandardMaterial>();
+function sharedMat(color: string, roughness: number) {
+  const key = color + roughness;
+  let m = charMat.get(key);
+  if (!m) { m = new THREE.MeshStandardMaterial({ color, roughness }); charMat.set(key, m); }
+  return m;
+}
+
 function makeCharacter(color: string, seeker: boolean): THREE.Group {
   const g = new THREE.Group();
-  const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.6 });
-  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.38, 0.55, 6, 16), mat);
+  const body = new THREE.Mesh(charGeo.body, sharedMat(color, 0.6));
   body.position.y = 0.38 + 0.275;
   body.castShadow = true;
   g.add(body);
-  const white = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.4 });
-  const black = new THREE.MeshStandardMaterial({ color: '#2b2350', roughness: 0.4 });
+  const white = sharedMat('#ffffff', 0.4);
+  const black = sharedMat('#2b2350', 0.4);
   for (const sx of [-0.14, 0.14]) {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.1, 12, 12), white);
+    const eye = new THREE.Mesh(charGeo.eye, white);
     eye.position.set(sx, 0.95, 0.31);
-    const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 10), black);
+    const pupil = new THREE.Mesh(charGeo.pupil, black);
     pupil.position.set(sx, 0.95, 0.4);
     g.add(eye, pupil);
   }
   if (seeker) {
     // A little detective cap so everyone knows who's seeking.
-    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.36, 0.22, 20), new THREE.MeshStandardMaterial({ color: '#e85f3d' }));
+    const red = sharedMat('#e85f3d', 1);
+    const cap = new THREE.Mesh(charGeo.cap, red);
     cap.position.y = 1.36;
-    const brim = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.05, 0.3), cap.material);
+    const brim = new THREE.Mesh(charGeo.brim, red);
     brim.position.set(0, 1.27, 0.3);
     g.add(cap, brim);
   }
   return g;
+}
+
+/** Free the GPU memory of a one-off object (effects), including textures. */
+function disposeTree(root: THREE.Object3D) {
+  root.traverse((o) => {
+    const m = o as THREE.Mesh;
+    if (!m.geometry) return;
+    m.geometry.dispose();
+    for (const mat of ([] as THREE.Material[]).concat(m.material)) {
+      (mat as THREE.SpriteMaterial).map?.dispose();
+      mat.dispose();
+    }
+  });
 }

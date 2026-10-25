@@ -43,6 +43,13 @@ net.onStatus = (ok) => {
   else if (!$('home').hidden) $('conn-status').hidden = false;
 };
 const world = new World($<HTMLCanvasElement>('canvas'));
+
+// A phone can drop the 3D context (low memory, app switch). Show a way back
+// instead of a blank screen; the saved session rejoins the room on reload.
+function showCrash() { $('crash').hidden = false; }
+$('canvas').addEventListener('webglcontextlost', (e) => { e.preventDefault(); showCrash(); });
+window.addEventListener('error', (e) => { console.error(e.error ?? e.message); if (!$('game').hidden) showCrash(); });
+$('crash-reload').addEventListener('click', () => location.reload());
 const controls = new Controls($('stick'), document.querySelector('.stick-base') as HTMLElement, $('stick-knob'));
 
 // ---------- Screens ----------
@@ -397,8 +404,12 @@ function reconcile(server: SnapPlayer | undefined) {
   if (!server) { pred = null; return; }
   if (!pred || !server.a) { pred = { x: server.x, z: server.z }; return; }
   const err = Math.hypot(server.x - pred.x, server.z - pred.z);
-  if (err > 1.5 || server.l) pred = { x: server.x, z: server.z };
-  else { pred.x += (server.x - pred.x) * 0.12; pred.z += (server.z - pred.z) * 0.12; }
+  // While walking, the server is always one round trip behind us, so only a
+  // big gap means we really disagree. Once we've stopped and the server has
+  // seen our last input, settle onto its position.
+  const moving = !!(lastSentDir.dx || lastSentDir.dz);
+  if (err > (moving ? 3 : 1.5) || server.l) pred = { x: server.x, z: server.z };
+  else if (!moving && server.s === seq) { pred.x += (server.x - pred.x) * 0.3; pred.z += (server.z - pred.z) * 0.3; }
 }
 
 function canMove(): boolean {

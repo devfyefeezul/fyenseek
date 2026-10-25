@@ -191,3 +191,4 @@ input:focus, select:focus { border-color: var(--coral); }
   .rotate-hint p { font-size: 18px; font-weight: 800; }
 }
 @media (prefers-reduced-motion: reduce) { .toast { animation-duration: .01s; animation-delay: 2.5s; } }
+.crash { position: fixed; z-index: 100; background: rgba(36,29,69,.92); color: var(--ink, #2b2350); }

@@ -81,6 +81,15 @@
       <p id="lobby-error" class="error" role="alert"></p>
     </section>
 
+    <!-- Shown instead of a blank screen if the 3D view or the page breaks -->
+    <div id="crash" class="overlay crash" hidden>
+      <div class="overlay-inner">
+        <h2>Oops, the game hiccuped</h2>
+        <p>Reload to jump back into your room.</p>
+        <button id="crash-reload" class="btn primary">Reload</button>
+      </div>
+    </div>
+
     <!-- Game -->
     <section id="game" class="screen" hidden>
       <div class="hud-top">

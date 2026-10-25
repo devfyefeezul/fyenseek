@@ -39,7 +39,9 @@ export class Controls {
     if (len > 1) { dx /= len; dy /= len; }
     // Small dead zone so a resting thumb doesn't drift.
     const mag = Math.hypot(dx, dy);
-    this.stick = mag < 0.12 ? { x: 0, y: 0 } : { x: dx, y: -dy };
+    // Full speed from 70% of the way out, so a normal push isn't a sneak.
+    const speed = mag < 0.12 ? 0 : Math.min(1, (mag - 0.12) / 0.58);
+    this.stick = speed ? { x: (dx / mag) * speed, y: (-dy / mag) * speed } : { x: 0, y: 0 };
     this.knob.style.transform = `translate(${dx * max * 0.8}px, ${dy * max * 0.8}px)`;
   }
 
